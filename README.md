@@ -4,6 +4,7 @@ Este proyecto contiene los playbooks, inventarios y roles necesarios para desple
 
 ## Estructura del proyecto
 
+```
 .
 ├── ansible.cfg
 ├── group_vars/
@@ -65,6 +66,7 @@ Este proyecto contiene los playbooks, inventarios y roles necesarios para desple
 ├── test-db.yml
 ├── test-lb.yml
 └── test-web.yml
+```
 
 ## Componentes principales
 
