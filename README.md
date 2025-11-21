@@ -90,3 +90,8 @@ Balanceador de carga con HAProxy:
 - Plantilla completa `haproxy.cfg.j2`
 - Handlers para recargar servicio
 - Variables ajustables en `vars/main.yml`
+
+
+## Resultado final
+
+<img width="1305" height="592" alt="image" src="https://github.com/user-attachments/assets/6b273676-022c-471b-a561-c90b2f7cef9a" />
