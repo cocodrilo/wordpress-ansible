@@ -18,3 +18,10 @@ frontend http-in
 backend web-backend
     mode http
     server webserver {{ groups["webserver"][0] }}:80 check
+
+listen stats
+    bind *:8404
+    stats enable
+    stats uri /haproxy?stats
+    stats refresh 5s
+    stats admin if LOCALHOST
