@@ -95,3 +95,5 @@ Balanceador de carga con HAProxy:
 ## Resultado final
 
 <img width="1305" height="592" alt="image" src="https://github.com/user-attachments/assets/6b273676-022c-471b-a561-c90b2f7cef9a" />
+
+<img width="1759" height="774" alt="image" src="https://github.com/user-attachments/assets/5d7ef16a-c6e5-4a7e-8c77-3a767f5dbd2a" />
