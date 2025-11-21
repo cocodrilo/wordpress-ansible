@@ -11,32 +11,56 @@ Este proyecto contiene los playbooks, inventarios y roles necesarios para desple
 ├── inventario.ini
 ├── roles/
 │   ├── database/
-│   │   ├── defaults/main.yml
-│   │   ├── handlers/main.yml
-│   │   ├── tasks/main.yml
-│   │   ├── templates/my.cnf.j2
-│   │   ├── vars/main.yml
-│   │   ├── meta/main.yml
+│   │   ├── defaults/
+│   │   │   └── main.yml
+│   │   ├── handlers/
+│   │   │   └── main.yml
+│   │   ├── tasks/
+│   │   │   └── main.yml
+│   │   ├── templates/
+│   │   │   └── my.cnf.j2
+│   │   ├── vars/
+│   │   │   └── main.yml
+│   │   ├── meta/
+│   │   │   └── main.yml
 │   │   ├── files/
 │   │   └── tests/
+│   │       ├── inventory
+│   │       └── test.yml
 │   ├── loadbalancer/
-│   │   ├── defaults/main.yml
-│   │   ├── handlers/main.yml
-│   │   ├── tasks/main.yml
-│   │   ├── templates/haproxy.cfg.j2
-│   │   ├── vars/main.yml
-│   │   ├── meta/main.yml
+│   │   ├── defaults/
+│   │   │   └── main.yml
+│   │   ├── handlers/
+│   │   │   └── main.yml
+│   │   ├── tasks/
+│   │   │   └── main.yml
+│   │   ├── templates/
+│   │   │   └── haproxy.cfg.j2
+│   │   ├── vars/
+│   │   │   └── main.yml
+│   │   ├── meta/
+│   │   │   └── main.yml
 │   │   ├── files/
 │   │   └── tests/
+│   │       ├── inventory
+│   │       └── test.yml
 │   └── webserver/
-│       ├── defaults/main.yml
-│       ├── handlers/main.yml
-│       ├── tasks/main.yml
-│       ├── templates/wp-config.php.j2
-│       ├── vars/main.yml
-│       ├── meta/main.yml
+│       ├── defaults/
+│       │   └── main.yml
+│       ├── handlers/
+│       │   └── main.yml
+│       ├── tasks/
+│       │   └── main.yml
+│       ├── templates/
+│       │   └── wp-config.php.j2
+│       ├── vars/
+│       │   └── main.yml
+│       ├── meta/
+│       │   └── main.yml
 │       ├── files/
 │       └── tests/
+│           ├── inventory
+│           └── test.yml
 ├── secrets.yml
 ├── test-db.yml
 ├── test-lb.yml
