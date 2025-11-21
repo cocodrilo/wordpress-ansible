@@ -1,0 +1,91 @@
+---
+- name: Control de HAProxy
+  hosts: loadbalancer
+  become: yes
+
+  vars:
+    haproxy_socket: /run/haproxy/admin.sock
+
+  tasks:
+
+    - name: Instalar socat si no está presente
+      apt:
+        name: socat
+        state: present
+      when: haproxy_action in ["show-stats", "show-backends", "maintenance-on", "maintenance-off"]
+
+    - name: Estado
+      command: systemctl status haproxy
+      register: out
+      when: haproxy_action == "status"
+
+    - debug:
+        var: out.stdout_lines
+      when: haproxy_action == "status"
+
+    - name: Start
+      service:
+        name: haproxy
+        state: started
+      when: haproxy_action == "start"
+
+    - name: Stop
+      service:
+        name: haproxy
+        state: stopped
+      when: haproxy_action == "stop"
+
+    - name: Restart
+      service:
+        name: haproxy
+        state: restarted
+      when: haproxy_action == "restart"
+
+    - name: Reload
+      service:
+        name: haproxy
+        state: reloaded
+      when: haproxy_action == "reload"
+
+    - name: Enable
+      service:
+        name: haproxy
+        enabled: yes
+      when: haproxy_action == "enable"
+
+    - name: Disable
+      service:
+        name: haproxy
+        enabled: no
+      when: haproxy_action == "disable"
+
+    - name: Show stats
+      shell: "echo 'show stat' | socat stdio {{ haproxy_socket }}"
+      register: stats
+      when: haproxy_action == "show-stats"
+
+    - debug:
+        var: stats.stdout_lines
+      when: haproxy_action == "show-stats"
+
+    - name: Show backends
+      shell: "echo 'show backend' | socat stdio {{ haproxy_socket }}"
+      register: backs
+      when: haproxy_action == "show-backends"
+
+    - debug:
+        var: backs.stdout_lines
+      when: haproxy_action == "show-backends"
+
+    - name: Maintenance ON
+      shell: "echo 'disable server web-backend/webserver' | socat stdio {{ haproxy_socket }}"
+      when: haproxy_action == "maintenance-on"
+
+    - name: Maintenance OFF
+      shell: "echo 'enable server web-backend/webserver' | socat stdio {{ haproxy_socket }}"
+      when: haproxy_action == "maintenance-off"
+
+    - name: Acción no válida
+      fail:
+        msg: "Acción no válida. Usa: status,start,stop,restart,reload,enable,disable,show-stats,show-backends,maintenance-on,maintenance-off"
+      when: haproxy_action not in [ "status","start","stop","restart","reload","enable","disable","show-stats","show-backends","maintenance-on","maintenance-off" ]
