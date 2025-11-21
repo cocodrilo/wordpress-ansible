@@ -1,0 +1,16 @@
+[all_hosts]
+alpha ansible_host=192.168.11.20
+bravo ansible_host=192.168.11.30
+charlie ansible_host=192.168.11.40
+
+[database]
+alpha
+
+[loadbalancer]
+bravo
+
+[webserver]
+charlie
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3.10

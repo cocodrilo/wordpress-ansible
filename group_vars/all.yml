@@ -1,0 +1,4 @@
+secret_vars: "{{ lookup('file', 'secrets.yml') | from_yaml }}"
+
+mysql_root_password: "{{ secret_vars.mysql_root_password }}"
+mysql_wp_password: "{{ secret_vars.mysql_wp_password }}"

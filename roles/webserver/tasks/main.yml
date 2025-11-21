@@ -1,0 +1,46 @@
+- name: Instalar paquetes necesarios para WordPress
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - apache2
+    - php
+    - php-mysql
+    - libapache2-mod-php
+    - php-curl
+    - php-gd
+    - php-xml
+    - php-mbstring
+    - unzip
+  notify: restart apache
+  when: "'webserver' in group_names"
+
+- name: Descargar WordPress
+  get_url:
+    url: https://wordpress.org/latest.zip
+    dest: /tmp/wordpress.zip
+  when: "'webserver' in group_names"
+
+- name: Extraer WordPress
+  unarchive:
+    src: /tmp/wordpress.zip
+    dest: /var/www/html/
+    remote_src: yes
+  when: "'webserver' in group_names"
+  notify: restart apache
+
+- name: Copiar wp-config.php desde plantilla
+  template:
+    src: wp-config.php.j2
+    dest: /var/www/html/wordpress/wp-config.php
+  when: "'webserver' in group_names"
+  notify: restart apache
+
+- name: Ajustar permisos de WordPress
+  file:
+    path: /var/www/html/wordpress
+    owner: www-data
+    group: www-data
+    recurse: yes
+  when: "'webserver' in group_names"

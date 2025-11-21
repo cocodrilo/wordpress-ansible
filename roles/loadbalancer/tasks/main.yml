@@ -1,0 +1,15 @@
+---
+- name: Instalar HAProxy
+  apt:
+    name: haproxy
+    state: present
+    update_cache: yes
+  when: "'loadbalancer' in group_names"
+  notify: restart haproxy
+
+- name: Copiar configuración de HAProxy desde plantilla
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  when: "'loadbalancer' in group_names"
+  notify: restart haproxy

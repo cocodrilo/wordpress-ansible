@@ -1,0 +1,33 @@
+- name: Instalar paquetes del servidor MariaDB
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - mariadb-server
+    - mariadb-client
+    - python3-pymysql
+  when: "'database' in group_names"
+  notify: restart mariadb
+
+- name: Crear base de datos de WordPress
+  mysql_db:
+    name: wordpress
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Crear usuario de WordPress
+  mysql_user:
+    name: wpuser
+    password: "{{ mysql_wp_password }}"
+    priv: "wordpress.*:ALL"
+    host: "%"
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Copiar my.cnf personalizado
+  template:
+    src: my.cnf.j2
+    dest: /etc/mysql/mariadb.conf.d/99-custom.cnf
+  notify: restart mariadb
+

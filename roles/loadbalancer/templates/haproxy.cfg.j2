@@ -1,0 +1,20 @@
+global
+    log /dev/log local0
+    maxconn 2048
+    daemon
+
+defaults
+    log     global
+    option  httplog
+    mode    http
+    timeout connect 5000ms
+    timeout client  50000ms
+    timeout server  50000ms
+
+frontend http-in
+    bind *:80
+    default_backend web-backend
+
+backend web-backend
+    mode http
+    server webserver {{ groups["webserver"][0] }}:80 check
